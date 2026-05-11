@@ -3,12 +3,12 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyAdxkXOHp_L-8psfEgN3_2a4AL5LpyO3lA",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "tolamda.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "tolamda",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "tolamda.firebasestorage.app",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "905852529825",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:905852529825:web:e7207b8a19ef00889a94e0"
+  apiKey: "AIzaSyAdxkXOHp_L-8psfEgN3_2a4AL5LpyO3lA",
+  authDomain: "tolamda.firebaseapp.com",
+  projectId: "tolamda",
+  storageBucket: "tolamda.firebasestorage.app",
+  messagingSenderId: "905852529825",
+  appId: "1:905852529825:web:e7207b8a19ef00889a94e0"
 };
 
 const app = initializeApp(firebaseConfig);

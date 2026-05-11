@@ -23,13 +23,13 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, ratingObj, 
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
       whileTap={{ scale: 0.98 }}
-      className="flex w-full items-center gap-3.5 rounded-[28px] border border-rose/15 bg-white p-3.5 shadow-card shadow-rose/[0.02]"
+      className="flex w-full items-center gap-3.5 rounded-2xl border border-rose/15 bg-white p-3.5 shadow-card"
     >
       <div className="w-8 flex-shrink-0 text-center text-lg font-extrabold text-text-light/40">
         {index + 1}
       </div>
       
-      <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-[20px] bg-bg">
+      <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-xl bg-bg">
         <img 
           src={restaurant.img} 
           alt={restaurant.name}

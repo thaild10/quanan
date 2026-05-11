@@ -29,7 +29,7 @@ export default function FilterSection({
 
   return (
     <div className="flex w-full max-w-[720px] flex-col gap-4 p-5 pb-0">
-      <div className="rounded-3xl border border-rose/15 bg-white p-4.5 shadow-card">
+      <div className="rounded-2xl border border-rose/15 bg-white p-4.5 shadow-card">
         <span className="mb-3 block text-[13px] font-extrabold uppercase tracking-widest text-text-mid">
           Thành phố
         </span>
@@ -49,7 +49,7 @@ export default function FilterSection({
       <button
         onClick={onOpenNowToggle}
         className={cn(
-          "flex w-full items-center justify-center gap-2.5 rounded-[18px] p-4 text-[15px] font-extrabold shadow-lg transition-all active:scale-[0.98]",
+          "flex w-full items-center justify-center gap-2.5 rounded-xl p-4 text-[15px] font-extrabold shadow-lg transition-all active:scale-[0.98]",
           openNowMode
             ? "bg-gradient-to-br from-red to-red-dark text-white shadow-red/20"
             : "bg-gradient-to-br from-green to-green-dark text-white shadow-green/20"
@@ -60,7 +60,7 @@ export default function FilterSection({
       </button>
 
       {openNowMode && (
-        <div className="flex items-center gap-2.5 rounded-[18px] border border-green/20 bg-green/10 px-4.5 py-3 text-sm font-bold text-green-dark">
+        <div className="flex items-center gap-2.5 rounded-xl border border-green/20 bg-green/10 px-4.5 py-3 text-sm font-bold text-green-dark">
           <Clock size={18} strokeWidth={2.5} />
           <span>
             Đang mở lúc <strong className="ml-1">{currentTime}</strong>
@@ -72,7 +72,7 @@ export default function FilterSection({
         onClick={onClearAll}
         disabled={!isFiltered}
         className={cn(
-          "w-full rounded-[18px] p-4 text-[14px] font-extrabold transition-all active:scale-[0.98]",
+          "w-full rounded-xl p-4 text-[14px] font-extrabold transition-all active:scale-[0.98]",
           isFiltered
             ? "bg-red text-white shadow-lg shadow-red/20"
             : "bg-red-pale text-red-dark/40 cursor-not-allowed"

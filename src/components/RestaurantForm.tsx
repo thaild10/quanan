@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { X, Upload, Plus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Restaurant, City, CITIES, Rating } from '../types';
@@ -45,6 +45,8 @@ export default function RestaurantForm({ isOpen, onClose, onSave, editingRestaur
     }
     setImageFile(null);
   }, [editingRestaurant, isOpen]);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -175,13 +177,14 @@ export default function RestaurantForm({ isOpen, onClose, onSave, editingRestaur
                   <label className="pl-1 text-[12px] font-extrabold uppercase tracking-widest text-text-mid">Hình ảnh</label>
                   <input
                     type="file"
-                    id="fileInput"
+                    ref={fileInputRef}
                     accept="image/*"
                     onChange={handleFileChange}
                     className="hidden"
                   />
                   <button
-                    onClick={() => document.getElementById('fileInput')?.click()}
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
                     className="flex flex-col items-center gap-2.5 rounded-2xl border-2 border-dashed border-rose/30 bg-bg p-5 font-bold text-text-mid"
                   >
                     {preview ? (
@@ -195,6 +198,7 @@ export default function RestaurantForm({ isOpen, onClose, onSave, editingRestaur
 
                 <div className="flex gap-3 pt-3">
                   <button
+                    type="button"
                     disabled={isSaving}
                     onClick={onClose}
                     className="flex-[0.4] rounded-[18px] bg-[#EDF2F7] p-4 text-[15px] font-bold text-text-mid transition-all active:scale-95 disabled:opacity-50"
@@ -202,6 +206,7 @@ export default function RestaurantForm({ isOpen, onClose, onSave, editingRestaur
                     Huỷ
                   </button>
                   <button
+                    type="button"
                     disabled={isSaving}
                     onClick={handleSubmit}
                     className="flex-1 rounded-[18px] bg-rose p-4 text-[15px] font-extrabold text-white shadow-xl shadow-rose/20 transition-all active:scale-95 disabled:opacity-50"

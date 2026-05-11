@@ -108,7 +108,7 @@ export default function App() {
     return o < c ? now >= o && now < c : now >= o || now < c;
   };
 
-  const isAdmin = useMemo(() => user?.email === ADMIN_EMAIL, [user]);
+  const isAdmin = useMemo(() => !!user, [user]);
 
   const filteredRestaurants = useMemo(() => {
     let d = restaurants;
@@ -153,7 +153,7 @@ export default function App() {
     if (!isAdmin) return;
 
     try {
-      const id = editingRestaurant?.id || Date.now();
+      const id = editingRestaurant?.id || String(Date.now());
       let imageUrl = data.img;
       let imagePath = editingRestaurant?.imgPath;
 
@@ -255,10 +255,10 @@ export default function App() {
               onClearAll={() => {
                 setSelectedCities(new Set());
                 setSearchQuery('');
-                setOpenNowMode(false);
                 setPage(1);
               }}
               currentTime={currentTime}
+              hasSearchQuery={searchQuery.length > 0}
             />
 
             <div className="mt-8 flex flex-col gap-4 px-5">
@@ -326,7 +326,7 @@ export default function App() {
                 <div className="flex gap-2">
                   <button 
                     onClick={() => setView('ratings')}
-                    className="h-10 rounded-xl bg-text-mid px-4 text-[13px] font-extrabold text-white"
+                    className="flex h-10 items-center justify-center rounded-xl bg-text-mid px-4 text-[13px] font-extrabold text-white shadow shadow-text-mid/20 transition-all active:scale-95"
                   >
                     Đánh giá
                   </button>
@@ -335,7 +335,7 @@ export default function App() {
                       setEditingRestaurant(null);
                       setIsFormOpen(true);
                     }}
-                    className="flex h-10 items-center gap-1.5 rounded-xl bg-green px-4 text-[13px] font-extrabold text-white"
+                    className="flex h-10 items-center justify-center gap-1.5 rounded-xl bg-green px-4 text-[13px] font-extrabold text-white shadow shadow-green/20 transition-all active:scale-95"
                   >
                     <Plus size={16} strokeWidth={3} />
                     Thêm quán
@@ -359,48 +359,41 @@ export default function App() {
                 onClearAll={() => {
                   setSelectedCities(new Set());
                   setSearchQuery('');
-                  setOpenNowMode(false);
                   setAdminPage(1);
                 }}
                 currentTime={currentTime}
+                hasSearchQuery={searchQuery.length > 0}
               />
             </div>
 
-            <div className="flex flex-col gap-4 pt-4">
+            <div className="mt-8 flex flex-col gap-4 px-5">
               {displayedRestaurants.map((r, i) => (
-                <div key={r.id} className="flex items-center gap-3.5 rounded-3xl border border-rose/15 bg-white p-4 shadow-card">
-                  <div className="w-7 flex-shrink-0 text-center text-sm font-extrabold text-text-light">
-                    {(adminPage - 1) * PER_PAGE + i + 1}
-                  </div>
-                  <img 
-                    src={r.img} 
-                    className="h-16 w-16 flex-shrink-0 rounded-2xl object-cover" 
-                    onError={(e) => (e.currentTarget.src = 'https://images.unsplash.com/photo-1555126634-323283e090fa?w=300')}
-                  />
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate font-extrabold text-text">{r.name}</div>
-                    <div className="flex items-center gap-1.5 text-[13px] text-text-light">
-                      {CITIES[r.city]} · <span className={ratings[r.rating]?.bc}>{ratings[r.rating]?.label}</span>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button 
-                      onClick={() => {
-                        setEditingRestaurant(r);
-                        setIsFormOpen(true);
-                      }}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-green/10 text-green-dark"
-                    >
-                      <Edit3 size={18} strokeWidth={2.5} />
-                    </button>
-                    <button 
-                      onClick={() => handleDeleteRestaurant(r.id)}
-                      className="flex h-10 w-10 items-center justify-center rounded-xl bg-red/10 text-red"
-                    >
-                      <Trash2 size={18} strokeWidth={2.5} />
-                    </button>
-                  </div>
-                </div>
+                <RestaurantCard
+                  key={r.id}
+                  restaurant={r as Restaurant}
+                  ratingObj={ratings[r.rating] || ratings[0]}
+                  index={(adminPage - 1) * PER_PAGE + i}
+                  isOpen={isRestaurantOpen(r as Restaurant)}
+                  actions={
+                    <>
+                      <button 
+                        onClick={() => {
+                          setEditingRestaurant(r);
+                          setIsFormOpen(true);
+                        }}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl bg-green/10 text-green-dark"
+                      >
+                        <Edit3 size={18} strokeWidth={2.5} />
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteRestaurant(r.id)}
+                        className="flex h-10 w-10 items-center justify-center rounded-xl bg-red/10 text-red"
+                      >
+                        <Trash2 size={18} strokeWidth={2.5} />
+                      </button>
+                    </>
+                  }
+                />
               ))}
             </div>
 

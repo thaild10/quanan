@@ -6,7 +6,7 @@ export interface Rating {
 }
 
 export interface Restaurant {
-  id: string | number;
+  id: string;
   name: string;
   city: City;
   rating: number;

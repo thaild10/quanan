@@ -14,9 +14,10 @@ interface RestaurantCardProps {
   ratingObj: Rating;
   index: number;
   isOpen: boolean;
+  actions?: React.ReactNode;
 }
 
-const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, ratingObj, index, isOpen }) => {
+const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, ratingObj, index, isOpen, actions }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -70,6 +71,12 @@ const RestaurantCard: React.FC<RestaurantCardProps> = ({ restaurant, ratingObj, 
           </p>
         )}
       </div>
+
+      {actions && (
+        <div className="flex flex-shrink-0 flex-col gap-2 border-l border-rose/10 pl-3">
+          {actions}
+        </div>
+      )}
     </motion.div>
   );
 };

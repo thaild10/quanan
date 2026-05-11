@@ -15,6 +15,7 @@ interface FilterSectionProps {
   onOpenNowToggle: () => void;
   onClearAll: () => void;
   currentTime: string;
+  hasSearchQuery: boolean;
 }
 
 export default function FilterSection({
@@ -23,9 +24,10 @@ export default function FilterSection({
   openNowMode,
   onOpenNowToggle,
   onClearAll,
-  currentTime
+  currentTime,
+  hasSearchQuery
 }: FilterSectionProps) {
-  const isFiltered = selectedCities.size > 0 || openNowMode;
+  const isFiltered = selectedCities.size > 0 || hasSearchQuery;
 
   return (
     <div className="flex w-full max-w-[720px] flex-col gap-4 p-5 pb-0">

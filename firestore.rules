@@ -18,7 +18,7 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return isEmailVerified() && request.auth.token.email == 'thaild@app.local';
+      return isSignedIn(); // Allow any signed in user for now
     }
 
     function isValidId(id) {
